@@ -46,6 +46,7 @@ data.connect:[generic|notifications]
          notifications.type
          notifications.content
          notifications.handled
+         notifications.created
       where
          and
             username.eq:x:@auth.ticket.get
