@@ -3,12 +3,12 @@
  */
 
 /*
- * Creating our Stripe database.
+ * Creating our database.
  */
 create database notifications;
 
 /*
- * Making sure we use stripe database.
+ * Making sure we use our database.
  */
 use notifications;
 
