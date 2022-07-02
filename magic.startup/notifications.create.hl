@@ -1,0 +1,19 @@
+
+/*
+ * Creates a new notification and stores in our notifications database.
+ */
+slots.create:notifications.create
+
+   // Sanity checking invocation.
+   validators.mandatory:x:@.arguments/*/type
+   validators.mandatory:x:@.arguments/*/content
+   validators.mandatory:x:@.arguments/*/username
+
+   // Opening up database connection and storing item.
+   data.connect:notifications
+      data.create
+         table:notifications
+         values
+            type:x:@.arguments/*/type
+            content:x:@.arguments/*/content
+            username:x:@.arguments/*/username
