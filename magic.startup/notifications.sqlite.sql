@@ -12,5 +12,6 @@ create table notifications (
   username varchar(256) not null,
   type varchar(50) not null,
   content text not null,
-  handled boolean not null default false
+  handled boolean not null default false,
+  created timestamp not null default current_timestamp
 );
