@@ -1,0 +1,30 @@
+
+/*
+ * Clears all notifications belonging to currently authenticated user.
+ */
+.description:Clears all notifications belonging to currently authenticated user
+.type:custom
+
+// Verifying user is authorized to access endpoint.
+auth.ticket.verify:root, admin, guest
+
+// Ensuring we only update only notifications belonging to currently authenticated user.
+auth.ticket.get
+
+// Opening up our database connection.
+data.connect:[generic|notifications]
+
+   // Invoking our update slot.
+   data.update
+      table:notifications
+      values
+         handled:bool:true
+      where
+         and
+            username.eq:x:@auth.ticket.get
+
+   // Returning success to caller.
+   response.status.set:202
+   unwrap:x:+/*
+   return
+      affected:x:@data.update
