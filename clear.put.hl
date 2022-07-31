@@ -3,6 +3,7 @@
  * Clears all notifications belonging to currently authenticated user.
  */
 .description:Clears all notifications belonging to currently authenticated user
+.arguments
 .type:custom
 
 // Verifying user is authorized to access endpoint.
