@@ -18,6 +18,21 @@
 // Verifying user is authorized to access endpoint.
 auth.ticket.verify:root, admin, guest
 
+// Defaulting sorting order to created and descending unless explicitly overridden.
+.sort
+   order:x:@.arguments/*/order
+   direction:x:@.arguments/*/direction
+unwrap:x:-/*
+if
+   and
+      null:x:@.sort/*/order
+      null:x:@.sort/*/direction
+   .lambda
+      set-value:x:@.sort/*/order
+         .:created
+      set-value:x:@.sort/*/direction
+         .:desc
+
 // Ensuring we're able to retrieve only notifications belonging to currently authenticated user.
 auth.ticket.get
 
@@ -28,8 +43,6 @@ data.connect:[generic|notifications]
    add:x:./*/data.read
       get-nodes:x:@.arguments/*/limit
       get-nodes:x:@.arguments/*/offset
-      get-nodes:x:@.arguments/*/order
-      get-nodes:x:@.arguments/*/direction
    remove-nodes:x:@.arguments/*/limit
    remove-nodes:x:@.arguments/*/offset
    remove-nodes:x:@.arguments/*/order
@@ -50,6 +63,8 @@ data.connect:[generic|notifications]
       where
          and
             username.eq:x:@auth.ticket.get
+      order:x:@.sort/*/order
+      direction:x:@.sort/*/direction
 
    // Returning result of above read invocation to caller.
    return-nodes:x:@data.read/*
