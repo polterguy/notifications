@@ -10,7 +10,7 @@ slots.create:notifications.create
    validators.mandatory:x:@.arguments/*/username
 
    // Opening up database connection and storing item.
-   data.connect:notifications
+   data.connect:[generic|notifications]
       data.create
          table:notifications
          values
